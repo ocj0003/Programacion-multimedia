@@ -1,12 +1,12 @@
 package com.example.listaoscar;
 
-public class Videojuegos {
+public class Videojuego {
 
     private String titulo;
     private String plataforma;
     private int imagen;   // el recurso de la imagen: R.drawable.algo
 
-    public Videojuegos(String titulo, String plataforma, int imagen) {
+    public Videojuego(String titulo, String plataforma, int imagen) {
         this.titulo = titulo;
         this.plataforma = plataforma;
         this.imagen = imagen;
