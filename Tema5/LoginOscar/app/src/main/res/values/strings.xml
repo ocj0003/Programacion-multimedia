@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LoginOscar</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="hint_correo">Escribe tu correo electrónico aquí</string>
+    <string name="hint_contrasena">Escribe tu contraseña aquí</string>
+    <string name="recordar_contrasena">Recordar contraseña</string>
+    <string name="continuar">Continuar</string>
 </resources>
