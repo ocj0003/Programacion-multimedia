@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="verde">#4CAF50</color>
+    <color name="rojo">#F44336</color>
     <color name="fondo">#1B2A41</color>
     <color name="texto_claro">#F1F5F9</color>
     <color name="caja_fondo">#324A5F</color>
