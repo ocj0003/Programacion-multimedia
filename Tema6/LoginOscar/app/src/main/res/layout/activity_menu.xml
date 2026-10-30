@@ -28,7 +28,7 @@
         android:layout_marginTop="24dp"
         android:textColor="@color/texto_claro"
         android:textSize="20sp"
-        tools:text="Hola, diego@correo.com"
+        tools:text="Hola, oscar@correo.com"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent" />
 
