@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="error_correo_vacio">Escribe tu correo</string>
+    <string name="error_pass_vacia">Escribe la contraseña</string>
+    <string name="msg_recordado">Usuario y contraseña correctos. Almacenados para siguientes accesos</string>
+    <string name="msg_correcto">Usuario y contraseña correctos</string>
+    <string name="msg_incorrecto">Usuario y/o contraseña incorrectos</string>
+    <string name="msg_demasiados">Demasiados intentos</string>
+    <string name="app_name">LoginOscar</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="hint_correo">Escribe tu correo electrónico aquí</string>
+    <string name="hint_contrasena">Escribe tu contraseña aquí</string>
+    <string name="recordar_contrasena">Recordar correo</string>
+    <string name="continuar">Continuar</string>
+    <string name="titulo_menu">Menú principal</string>
+    <string name="saludo">Hola, %1$s</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+</resources>
