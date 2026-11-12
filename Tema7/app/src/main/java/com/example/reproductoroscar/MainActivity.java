@@ -1,5 +1,8 @@
 package com.example.reproductoroscar;
 
+import android.content.res.ColorStateList;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seekBar;
     private TextView tvActual, tvTotal;
 
+    // Efectos de sonido
+    private SoundPool soundPool;
+    private int idTambores, idTransicion, idGrito, idDramatico;
+    private int cargados = 0;              // cuántos sonidos se han cargado ya
+    private ColorStateList colorOriginal;  // el morado de los botones
+
     // Handler que actualiza la barra cada medio segundo
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable actualizarBarra = new Runnable() {
@@ -47,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Vistas
+        // Vistas del reproductor
         Button btnPlay = findViewById(R.id.btnPlay);
         Button btnPausa = findViewById(R.id.btnPausa);
         seekBar = findViewById(R.id.seekBar);
@@ -96,6 +105,61 @@ public class MainActivity extends AppCompatActivity {
                 tvActual.setText(formatear(seekBar.getProgress()));
             }
         });
+
+        // ===== Ejercicio 2: efectos con SoundPool =====
+        Button btnTambores = findViewById(R.id.btnTambores);
+        Button btnTransicion = findViewById(R.id.btnTransicion);
+        Button btnGrito = findViewById(R.id.btnGrito);
+        Button btnDramatico = findViewById(R.id.btnDramatico);
+
+        // Guardamos el color original (morado) para volver a él
+        colorOriginal = btnTambores.getBackgroundTintList();
+
+        AudioAttributes atributos = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(4)
+                .setAudioAttributes(atributos)
+                .build();
+
+        // Cuando se carga cada sonido suma 1; con los 4 cargados se activan los botones
+        soundPool.setOnLoadCompleteListener((pool, idSonido, estado) -> {
+            if (estado == 0) {
+                cargados++;
+            }
+            if (cargados == 4) {
+                btnTambores.setEnabled(true);
+                btnTransicion.setEnabled(true);
+                btnGrito.setEnabled(true);
+                btnDramatico.setEnabled(true);
+            }
+        });
+
+        // Cargar los 4 efectos (guardamos su id)
+        idTambores = soundPool.load(this, R.raw.efecto_tambores, 1);
+        idTransicion = soundPool.load(this, R.raw.efecto_transicion, 1);
+        idGrito = soundPool.load(this, R.raw.efecto_grito, 1);
+        idDramatico = soundPool.load(this, R.raw.efecto_dramatico, 1);
+
+        // Cada botón reproduce su efecto y se pone verde un momento
+        btnTambores.setOnClickListener(v -> reproducirEfecto(btnTambores, idTambores));
+        btnTransicion.setOnClickListener(v -> reproducirEfecto(btnTransicion, idTransicion));
+        btnGrito.setOnClickListener(v -> reproducirEfecto(btnGrito, idGrito));
+        btnDramatico.setOnClickListener(v -> reproducirEfecto(btnDramatico, idDramatico));
+    }
+
+    // Reproduce un efecto y pone su botón en verde durante 1 segundo
+    private void reproducirEfecto(Button boton, int idSonido) {
+        soundPool.play(idSonido, 1f, 1f, 1, 0, 1f);
+
+        // Verde
+        boton.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.efecto_activo)));
+
+        // Al pasar 1 segundo vuelve al morado
+        handler.postDelayed(() -> boton.setBackgroundTintList(colorOriginal), 1000);
     }
 
     // Pasa de milisegundos a mm:ss
@@ -120,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        player.release(); // libera el reproductor
+        player.release();    // libera el reproductor
+        soundPool.release(); // libera los efectos
     }
 }
