@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ReproductorOscar</string>
+    <string name="titulo_cancion">Te Imagino</string>
+    <string name="autor_cancion">Myke Towers</string>
+    <string name="tiempo_cero">00:00</string>
+    <string name="play">Play</string>
+    <string name="pausa">Pausa</string>
+    <string name="efectos">Efectos de sonido</string>
+    <string name="efecto_tambores">Tambores</string>
+    <string name="efecto_transicion">Transición</string>
+    <string name="efecto_grito">Grito</string>
+    <string name="efecto_dramatico">Dramático</string>
+</resources>
