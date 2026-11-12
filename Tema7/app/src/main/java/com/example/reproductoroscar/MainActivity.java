@@ -107,6 +107,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        handler.post(actualizarBarra); // la barra empieza a actualizarse
+        handler.post(actualizarBarra); // la barra vuelve a actualizarse
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        player.pause();                            // la música se para
+        handler.removeCallbacks(actualizarBarra);  // la barra deja de actualizarse
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        player.release(); // libera el reproductor
     }
 }
