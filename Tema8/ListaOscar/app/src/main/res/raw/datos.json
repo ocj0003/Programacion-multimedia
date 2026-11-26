@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "titulo": "The Legend of Zelda",
+    "plataforma": "Nintendo Switch",
+    "imagen": "https://picsum.photos/id/1011/300/300"
+  },
+  {
+    "id": 2,
+    "titulo": "FIFA 23",
+    "plataforma": "PlayStation 5",
+    "imagen": "https://picsum.photos/id/1015/300/300"
+  },
+  {
+    "id": 3,
+    "titulo": "Counter-Strike 2",
+    "plataforma": "PC",
+    "imagen": "https://picsum.photos/id/1025/300/300"
+  },
+  {
+    "id": 4,
+    "titulo": "Clash Royale",
+    "plataforma": "Móvil",
+    "imagen": "https://picsum.photos/id/1035/300/300"
+  },
+  {
+    "id": 5,
+    "titulo": "Mario Kart 8",
+    "plataforma": "Nintendo Switch",
+    "imagen": "https://picsum.photos/id/1043/300/300"
+  },
+  {
+    "id": 6,
+    "titulo": "Gran Turismo 7",
+    "plataforma": "PlayStation 5",
+    "imagen": "https://picsum.photos/id/1050/300/300"
+  },
+  {
+    "id": 7,
+    "titulo": "League of Legends",
+    "plataforma": "PC",
+    "imagen": "https://picsum.photos/id/1062/300/300"
+  },
+  {
+    "id": 8,
+    "titulo": "Brawl Stars",
+    "plataforma": "Móvil",
+    "imagen": "https://picsum.photos/id/1074/300/300"
+  },
+  {
+    "id": 9,
+    "titulo": "Minecraft",
+    "plataforma": "PC",
+    "imagen": "https://picsum.photos/id/1080/300/300"
+  }
+]
