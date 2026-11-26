@@ -1,6 +1,8 @@
 package com.example.listaoscar;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,15 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,17 +37,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // 1. Los datos: al menos 8 elementos
+        // 1. Los datos: se leen de res/raw/datos.json
         ArrayList<Videojuego> videojuegos = new ArrayList<>();
-        videojuegos.add(new Videojuego("The Legend of Zelda", "Nintendo Switch", R.drawable.ic_mando));
-        videojuegos.add(new Videojuego("FIFA 23", "PlayStation 5", R.drawable.ic_consola));
-        videojuegos.add(new Videojuego("Counter-Strike 2", "PC", R.drawable.ic_pc));
-        videojuegos.add(new Videojuego("Clash Royale", "Móvil", R.drawable.ic_movil));
-        videojuegos.add(new Videojuego("Mario Kart 8", "Nintendo Switch", R.drawable.ic_mando));
-        videojuegos.add(new Videojuego("Gran Turismo 7", "PlayStation 5", R.drawable.ic_consola));
-        videojuegos.add(new Videojuego("League of Legends", "PC", R.drawable.ic_pc));
-        videojuegos.add(new Videojuego("Brawl Stars", "Móvil", R.drawable.ic_movil));
-        videojuegos.add(new Videojuego("Minecraft", "PC", R.drawable.ic_pc));
+        try {
+            JSONArray array = new JSONArray(leerRaw(R.raw.datos));
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject objeto = array.getJSONObject(i);
+                videojuegos.add(new Videojuego(
+                        objeto.getString("titulo"),
+                        objeto.getString("plataforma"),
+                        objeto.getString("imagen")));
+            }
+        } catch (IOException | JSONException e) {
+            Toast.makeText(this, "No se han podido leer los datos", Toast.LENGTH_LONG).show();
+            Log.e("MainActivity", "Error al leer datos.json", e);
+        }
 
         // 2. La lista
         RecyclerView rvLista = findViewById(R.id.rvLista);
@@ -44,5 +59,19 @@ public class MainActivity extends AppCompatActivity {
         rvLista.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         rvLista.setAdapter(new AdaptadorVideojuegos(videojuegos));
+    }
+
+    // Lee un archivo de res/raw y lo devuelve como texto
+    private String leerRaw(int idRecurso) throws IOException {
+        try (InputStream entrada = getResources().openRawResource(idRecurso);
+             BufferedReader lector = new BufferedReader(
+                     new InputStreamReader(entrada, StandardCharsets.UTF_8))) {
+            StringBuilder texto = new StringBuilder();
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                texto.append(linea).append('\n');
+            }
+            return texto.toString();
+        }
     }
 }
